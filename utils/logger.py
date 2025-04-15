@@ -29,7 +29,7 @@ def get_file_handler():
 
 logger.addHandler(get_file_handler())
 
-def logging():
+def log_exception():
     exc_type, exc_obj, exc_tb = sys.exc_info()
     logger.warning("--------------------------------------------------")
     logger.error("Oops! An exception has occurred: " + str(exc_obj))
