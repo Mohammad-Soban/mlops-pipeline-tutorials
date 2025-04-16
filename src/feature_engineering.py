@@ -1,7 +1,22 @@
 import pandas as pd
 import os
+import yaml
 from utils.logger import log_exception, logger
 from sklearn.feature_extraction.text import TfidfVectorizer
+
+def load_params(path):
+    """
+    Load parameters from the given YAML file.
+    """
+    try:
+        with open(path, 'r') as file:
+            params = yaml.safe_load(file)
+        return params
+    except Exception as e:
+        log_exception()
+        logger.warning("Unable to load params.yaml file")
+        exit()
+
 
 def load_data(file_path):
     """
@@ -61,7 +76,9 @@ def save_data(df, path):
 
 def main():
     try:
-        max_features = 50
+        params = load_params("params.yaml")
+        max_features = params['feature_engineering']['max_features']
+        logger.info("Parameters loaded successfully")
 
         train_data = load_data("./data/processed_data/train_processed.csv")
         test_data = load_data("./data/processed_data/test_processed.csv")

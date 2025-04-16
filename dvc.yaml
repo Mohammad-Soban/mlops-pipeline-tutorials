@@ -5,6 +5,9 @@ stages:
       - src/data_ingestion.py
     outs:
       - data/raw
+    params:
+      - data_ingestion.test_size
+      - data_ingestion.random_state
   data_preprocessing:
     cmd: python src/data_preprocessing.py
     deps:
@@ -19,6 +22,8 @@ stages:
       - src/feature_engineering.py
     outs:
       - data/transformed
+    params:
+      - feature_engineering.max_features
   model_training:
     cmd: python src/model_training.py
     deps:
@@ -26,6 +31,9 @@ stages:
       - src/model_training.py
     outs:
       - models/rf_model.pkl
+    params:
+      - model_training.n_estimators
+      - model_training.random_state
   model_evaluation:
     cmd: python src/model_evaluation.py
     deps:

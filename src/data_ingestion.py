@@ -1,7 +1,22 @@
 import os
 import pandas as pd
+import yaml
 from sklearn.model_selection import train_test_split
 from utils.logger import log_exception, logger
+
+def load_params(path):
+    """
+    Load parameters from the given YAML file.
+    """
+    try:
+        with open(path, 'r') as file:
+            params = yaml.safe_load(file)
+        return params
+    except Exception as e:
+        log_exception()
+        logger.warning("Unable to load params.yaml file")
+        exit()
+
 
 def load_data(data_url):
     """
@@ -58,8 +73,9 @@ def main():
     Main function to load, preprocess, split and save the data.    
     """
     try:
-        test_size = 0.20
-        random_state = 42
+        params = load_params('params.yaml')
+        test_size = params['data_ingestion']['test_size']
+        random_state = params['data_ingestion']['random_state']
         data_url = "https://raw.githubusercontent.com/Mohammad-Soban/mlops-pipeline-tutorials/refs/heads/main/experiments/spam.csv"
 
         data = load_data(data_url)

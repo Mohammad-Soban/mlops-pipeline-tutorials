@@ -1,9 +1,24 @@
 import pandas as pd
 import numpy as np
 import pickle
+import yaml
 import os
 from sklearn.ensemble import RandomForestClassifier
 from utils.logger import log_exception, logger
+
+def load_params(file_path):
+    """
+    Load the parameters from the given file path.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            params = yaml.safe_load(file)
+        return params
+    except Exception as e:
+        log_exception()
+        logger.warning("Exitting the program ....")
+        exit()
+
 
 def load_data(file_path):
     """
@@ -61,11 +76,8 @@ def save_model(model, path):
 
 def main():
     try:
-        params = {
-            'n_estimators': 50,
-            'random_state': 42
-        }
-
+        params = load_params('params.yaml')['model_training']
+        
         train_data = load_data('./data/transformed/train_tfidf.csv')
         X_train = train_data.iloc[:, :-1].values
         y_train = train_data.iloc[:, -1].values

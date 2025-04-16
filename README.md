@@ -8,11 +8,11 @@
 - Create a new folder named `src` in the root directory of your project. This folder will save all the components of the pipeline.
 - The src folder contains all the python files that are used in the pipeline.
 - Here we will have the following python files
-1. data_ingestion.py
-2. data_preprocessing.py
-3. feature_engineering.py
-4. model_training.py
-5. model_evaluation.py
+    1. data_ingestion.py
+    2. data_preprocessing.py
+    3. feature_engineering.py
+    4. model_training.py
+    5. model_evaluation.py
 
 - Each of these files will contain the code for each step of the pipeline. each of them will give artifacts that will be used in the next step of the pipeline. Finally a model will be saved in the models folder which will be used for prediction.
 - Similarly data folder will be created by the pipeline which will contain the data used in the pipeline. The data folder will have artifcats in the csv format which will be used in the pipeline.
@@ -27,12 +27,12 @@
 
 #### Content of YAML file
 - The YAML file will contain the following information:
-1. Start with stages: which will contain the name of the stages of the pipeline. (Ingestion, Preprocessing, Feature Engineering, Training, Evaluation)
-2. Each stage will contain the following information:
-- cmd: The command to run the stage. (python src/component_name.py)
-- params: The parameters to be passed to the stage. (The parameters will be passed in the form of key-value pairs. The parameters will be used in the component.)
-- outs: The output of the stage. (The output will be used in the next stage. The output will be in the form of a dictionary. The output will be used in the component.)
-- deps: The dependencies of the stage. (The dependencies will be used in the next stage. The dependencies will be in the form of a dictionary. The dependencies will be used in the component.)
+    1. Start with stages: which will contain the name of the stages of the pipeline. (Ingestion, Preprocessing, Feature Engineering, Training, Evaluation)
+    2. Each stage will contain the following information:
+        - cmd: The command to run the stage. (python src/component_name.py)
+        - params: The parameters to be passed to the stage. (The parameters will be passed in the form of key-value pairs. The parameters will be used in the component.)
+        - outs: The output of the stage. (The output will be used in the next stage. The output will be in the form of a dictionary. The output will be used in the component.)
+        - deps: The dependencies of the stage. (The dependencies will be used in the next stage. The dependencies will be in the form of a dictionary. The dependencies will be used in the component.)
 
 
 ### DVC STEPS
