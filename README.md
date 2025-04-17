@@ -7,7 +7,7 @@
 #### CREATION OF SRC FOLDER
 - Create a new folder named `src` in the root directory of your project. This folder will save all the components of the pipeline.
 - The src folder contains all the python files that are used in the pipeline.
-- Here we will have the following python files
+- Here we will have the following python files:
     1. data_ingestion.py
     2. data_preprocessing.py
     3. feature_engineering.py
@@ -35,10 +35,23 @@
         - deps: The dependencies of the stage. (The dependencies will be used in the next stage. The dependencies will be in the form of a dictionary. The dependencies will be used in the component.)
 
 
-### DVC STEPS
+#### DVC STEPS
 - Initialize DVC in the root directory of the project. (dvc init)
 - Reproduce the pipeline using the dvc.yaml file. (dvc repro)
     - This will create a dvc.lock file and run all the commands present in the dvc.yaml file
     - The lock file will contain the md5 hash of the output files and the command used to create the output files which can be used by dvc to move to that particular version of data or models. 
     - Now you can check the flow using the command `dvc dag` (Visually shows the flow of the pipeline)
 - Now to keep tracking we will add - commit - push to git 
+
+
+#### Setting Up DVC Live
+- DVC Live is a tool that helps you visualize and monitor your machine learning experiments in real-time. It provides a web-based dashboard to track the progress of your experiments, view metrics, and compare different runs.
+- To set up DVC Live, you need to install it using pip: `pip install dvclive`
+- Import dvclive and yaml in the code block where you want to track the metrics (For our case it will be in the model_evaluation.py file)
+- Now run different kinds of experiments by changing the parameters from the params.yaml file and then run the experiment using the command `dvc exp run`.
+- This will start running the experiment and will create a new folder named `dvc-live` in the root directory of the project. Here the metrics along with the params will be stored and a random name will be given to the experiment.
+- Now we can change the parameters in the params.yaml file and run the experiment again using the command `dvc exp run`.
+- Now after running many experiments we can visualize the experiments using the command `dvc exp show`. This will give the table but with a lot of information, which is difficult to interpret.
+- So we use the DVC Live Extension for VS Code to visualize the experiments in a better way. This extension will give a better view of the experiments and will help you to compare the experiments easily.
+- To delete an experiment use the command `dvc exp remove <experiment_name>`.
+- To reproduce the experiment use the command `dvc exp apply <experiment_name>`.

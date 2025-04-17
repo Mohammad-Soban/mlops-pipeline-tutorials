@@ -3,9 +3,25 @@ import numpy as np
 import pandas as pd
 import pickle
 import json
-
+import yaml
+from dvclive import Live
 from sklearn.metrics import accuracy_score, precision_score, roc_auc_score, recall_score
 from utils.logger import log_exception, logger
+
+def load_params(path):
+    """
+    Load parameters from a YAML file.
+    """
+    try:
+        with open(path, 'r') as file:
+            params = yaml.safe_load(file)
+        return params
+    
+    except Exception as e:
+        log_exception()
+        logger.warning("Exitting the program ....")
+        exit()
+
 
 def load_model(path):
     try:
@@ -83,6 +99,8 @@ def save_metrics(metrics, file_path):
 
 def main():
     try:
+        params = load_params('params.yaml')
+
         rf = load_model('models/rf_model.pkl')
         test_data = load_data('./data/transformed/test_tfidf.csv')
 
@@ -90,6 +108,15 @@ def main():
         y_test = test_data.iloc[:, -1].values
 
         metrics = evaluate_model(rf, X_test, y_test)
+
+        with Live(save_dvc_exp=True) as live:
+            live.log_metric('accuracy', metrics['accuracy'])
+            live.log_metric('precision', metrics['precision'])
+            live.log_metric('recall', metrics['recall'])
+            live.log_metric('roc_auc', metrics['roc_auc'])
+                
+            live.log_params(params)
+
         save_metrics(metrics, 'reports/model_metrics.json')
 
     except Exception as e:
