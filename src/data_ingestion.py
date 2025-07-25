@@ -3,20 +3,7 @@ import pandas as pd
 import yaml
 from sklearn.model_selection import train_test_split
 from utils.logger import log_exception, logger
-
-def load_params(path):
-    """
-    Load parameters from the given YAML file.
-    """
-    try:
-        with open(path, 'r') as file:
-            params = yaml.safe_load(file)
-        return params
-    except Exception as e:
-        log_exception()
-        logger.warning("Unable to load params.yaml file")
-        exit()
-
+from utils.loader import load_params
 
 def load_data(data_url):
     """

@@ -5,19 +5,7 @@ import yaml
 import os
 from sklearn.ensemble import RandomForestClassifier
 from utils.logger import log_exception, logger
-
-def load_params(file_path):
-    """
-    Load the parameters from the given file path.
-    """
-    try:
-        with open(file_path, 'r') as file:
-            params = yaml.safe_load(file)
-        return params
-    except Exception as e:
-        log_exception()
-        logger.warning("Exitting the program ....")
-        exit()
+from utils.loader import load_params
 
 
 def load_data(file_path):

@@ -3,20 +3,7 @@ import os
 import yaml
 from utils.logger import log_exception, logger
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-def load_params(path):
-    """
-    Load parameters from the given YAML file.
-    """
-    try:
-        with open(path, 'r') as file:
-            params = yaml.safe_load(file)
-        return params
-    except Exception as e:
-        log_exception()
-        logger.warning("Unable to load params.yaml file")
-        exit()
-
+from utils.loader import load_params
 
 def load_data(file_path):
     """

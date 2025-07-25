@@ -7,20 +7,7 @@ import yaml
 from dvclive import Live
 from sklearn.metrics import accuracy_score, precision_score, roc_auc_score, recall_score
 from utils.logger import log_exception, logger
-
-def load_params(path):
-    """
-    Load parameters from a YAML file.
-    """
-    try:
-        with open(path, 'r') as file:
-            params = yaml.safe_load(file)
-        return params
-    
-    except Exception as e:
-        log_exception()
-        logger.warning("Exitting the program ....")
-        exit()
+from utils.loader import load_params
 
 
 def load_model(path):
