@@ -2,8 +2,8 @@ import os
 import pandas as pd
 import yaml
 from sklearn.model_selection import train_test_split
-from utils.logger import log_exception, logger
 from utils.loader import load_params
+from utils.logger import log_exception, logger
 
 def load_data(data_url):
     """

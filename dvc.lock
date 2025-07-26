@@ -1,12 +1,12 @@
 schema: '2.0'
 stages:
   data_ingestion:
-    cmd: python src/data_ingestion.py
+    cmd: python -m src.data_ingestion
     deps:
     - path: src/data_ingestion.py
       hash: md5
-      md5: bab7668b902e43e48626f7db08a4de81
-      size: 3016
+      md5: 0105785ed6703cc938bfea77d7f12dc4
+      size: 2638
     params:
       params.yaml:
         data_ingestion.random_state: 42
@@ -18,7 +18,7 @@ stages:
       size: 443698
       nfiles: 2
   data_preprocessing:
-    cmd: python src/data_preprocessing.py
+    cmd: python -m src.data_preprocessing
     deps:
     - path: data/raw
       hash: md5
@@ -27,8 +27,8 @@ stages:
       nfiles: 2
     - path: src/data_preprocessing.py
       hash: md5
-      md5: 4437c29141d218678e2938b69af2beed
-      size: 2963
+      md5: 00b6e5c607ee17401145906dfbd591b0
+      size: 2868
     outs:
     - path: data/processed_data
       hash: md5
@@ -36,7 +36,7 @@ stages:
       size: 254241
       nfiles: 2
   feature_engineering:
-    cmd: python src/feature_engineering.py
+    cmd: python -m src.feature_engineering
     deps:
     - path: data/processed_data
       hash: md5
@@ -45,8 +45,8 @@ stages:
       nfiles: 2
     - path: src/feature_engineering.py
       hash: md5
-      md5: 539ecb439e32b6b65405935c1e5a34bc
-      size: 2858
+      md5: cd36863ea8c54087329d1db86882ad11
+      size: 2475
     params:
       params.yaml:
         feature_engineering.max_features: 50
@@ -57,7 +57,7 @@ stages:
       size: 1160014
       nfiles: 2
   model_training:
-    cmd: python src/model_training.py
+    cmd: python -m src.model_training
     deps:
     - path: data/transformed
       hash: md5
@@ -66,8 +66,8 @@ stages:
       nfiles: 2
     - path: src/model_training.py
       hash: md5
-      md5: 6bf646a6c56d8e46af79f240df8c6bb3
-      size: 2484
+      md5: 6f2a79130fc04351481c44e2cc06aa06
+      size: 2097
     params:
       params.yaml:
         model_training.n_estimators: 100
@@ -75,10 +75,10 @@ stages:
     outs:
     - path: models/rf_model.pkl
       hash: md5
-      md5: 5136693e13b4e2267413013700ed35fa
+      md5: c3910e9647737dd16b256d34cfc57918
       size: 3486373
   model_evaluation:
-    cmd: python src/model_evaluation.py
+    cmd: python -m src.model_evaluation
     deps:
     - path: data/transformed
       hash: md5
@@ -87,9 +87,9 @@ stages:
       nfiles: 2
     - path: models/rf_model.pkl
       hash: md5
-      md5: 5136693e13b4e2267413013700ed35fa
+      md5: c3910e9647737dd16b256d34cfc57918
       size: 3486373
     - path: src/model_evaluation.py
       hash: md5
-      md5: efd337ad71a3d3d4643e20471eff1099
-      size: 3341
+      md5: 1e54d240fce26667775efb4f91792ecc
+      size: 2938

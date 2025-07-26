@@ -1,5 +1,5 @@
 import yaml
-from logger import logger, log_exception
+from .logger import logger, log_exception
 
 
 def load_params(path):
