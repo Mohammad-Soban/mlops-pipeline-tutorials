@@ -74,9 +74,21 @@ module_name:
 - By using `dvc exp apply <experiment_name>` we can move to that particular experiment and then we can run the pipeline from there using the command `dvc repro`. This is similar to git checkout where we can move to a particular commit and then run the pipeline from there.
 
 
-
 #### USING THE DVC LIVE EXTENSION
 - Install the DVC Extension for VS Code from the marketplace.
 - Open the extension and click on show Experiments, which will show the experiments in a table format.
 - We can also show plots by clicking on the plot icon in the top right corner of the extension and select all those experiments which we want to compare.
 - We can also run a new experiment by clicking on the run button in the top right corner of the extension.
+
+
+#### PUSHING THE OUTCOMES TO REMOTE REPOSITORY (AWS S3)
+- For pushing the pre-requisites include:
+    1. Must have an IAM user with access to S3 bucket.
+    2. Must have an S3 bucket created.
+    3. Must have done `pip install dvc[s3]` to install the required dependencies for S3.
+    4. Must have done `pip install awscli` to install the AWS CLI.
+- After the prerequisites are done, we can configure awscli using the command `aws configure`. This will ask for the access key, secret key, region and output format.
+- Then to add to the remote repository we will use the command `dvc remote add -d remote_name s3://<bucket_name>/<folder_name>`. This will add the remote repository to the dvc configuration. Note that the folder_name is optional, if you want to save the data in a specific folder in the S3 bucket.
+- On doing the above in the .dvc folder a file named `config` will be created which will contain the remote repository information.
+- Now move towards that experiment which you want to push to the remote repository using the command `dvc exp apply <experiment_name>`, and then do dvc commit-push 
+- This will push the data to the remote repository. The data will be pushed to the S3 bucket in the folder specified in the remote repository.
